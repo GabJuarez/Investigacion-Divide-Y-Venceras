@@ -1,0 +1,51 @@
+﻿using System;
+
+class MaximoMinimoUsuario
+{
+    
+    public static (int, int) EncontrarMaximoMinimo(int[] array, int inicio, int fin)
+    {
+        
+        if (inicio == fin)
+        {
+            return (array[inicio], array[inicio]);
+        }
+
+        
+        int medio = (inicio + fin) / 2;
+
+        
+        var (maxIzq, minIzq) = EncontrarMaximoMinimo(array, inicio, medio);
+        var (maxDer, minDer) = EncontrarMaximoMinimo(array, medio + 1, fin);
+
+        
+        int maximo = Math.Max(maxIzq, maxDer);
+        int minimo = Math.Min(minIzq, minDer);
+
+        return (maximo, minimo);
+    }
+
+    public static void Main()
+    {
+        
+        Console.WriteLine("Digita el número de elementos en el arreglo:");
+        int n = int.Parse(Console.ReadLine());
+
+        
+        int[] array = new int[n];
+        Console.WriteLine("Digita los elementos del arreglo:");
+
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write($"Elemento {i + 1}: ");
+            array[i] = int.Parse(Console.ReadLine());
+        }
+    
+        
+        var (maximo, minimo) = EncontrarMaximoMinimo(array, 0, array.Length - 1);
+
+        
+        Console.WriteLine($"\nEl valor máximo es: {maximo}");
+        Console.WriteLine($"El valor mínimo es: {minimo}");
+    }
+}
